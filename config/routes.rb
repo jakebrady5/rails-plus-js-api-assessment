@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :customers
+  resources :mechanics
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -13,6 +15,11 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+  resources :customers
+
+  resources :mechanics do 
+    resources :customers
+  end
 
   # Example resource route with options:
   #   resources :products do
