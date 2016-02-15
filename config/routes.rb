@@ -15,11 +15,22 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
+
+  get '/' => 'static#home'
+  get '/signin' => 'static#signin'
+  post '/signin' => 'sessions#verify'
+  get '/signup' => 'static#signup'
+  post '/signup' => 'sessions#new'
+  get '/logout' => 'sessions#destroy'
+
   resources :customers
 
   resources :mechanics do 
     resources :customers
   end
+
+  get '/auth/facebook/callback' => 'sessions#create'
+  # get '/auth/facebook' => 'sessions#new'
 
   # Example resource route with options:
   #   resources :products do

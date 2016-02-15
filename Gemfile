@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-
+gem 'bcrypt'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'pry'

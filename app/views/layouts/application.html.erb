@@ -7,6 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<nav>
+  <span><%= link_to "Sign Up", signup_path %><span>
+  <span><%= link_to "Sign In", signin_path %></span>
+  <span><%= link_to "Log Out", logout_path %></span>
+</nav>
 
 <%= yield %>
 
