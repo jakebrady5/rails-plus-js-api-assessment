@@ -1,21 +1,23 @@
 class JobsController < ApplicationController
-  before_action :set_mechanic, except: :index
+  before_action :set_mechanic, except: :create
 
   def index
     @jobs = Job.all
   end
 
   def new
+    @mechanics = Mechanic.all
+    @customers = Customer.all
     @job = Job.new
   end
 
   def create
     @job = Job.create(job_params)
-    redirect_to mechanic_job_path(@job)
+    @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
+    redirect_to mechanic_job_path(@mechanic.id, @job.id)
   end
 
   def show
-    binding.pry
     @job = Job.find(params[:id])
   end
 
@@ -30,7 +32,7 @@ class JobsController < ApplicationController
 
   private
     def set_mechanic
-      @mechanic = Mechanic.find(params[:mechanic_id])
+      @mechanic = Mechanic.find_by(id: params[:mechanic_id])
     end
 
     def job_params

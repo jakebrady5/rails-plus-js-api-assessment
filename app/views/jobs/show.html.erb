@@ -1,0 +1,4 @@
+Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+Description: <%= @job.description %><br>
+Price: $<%= @job.price %>

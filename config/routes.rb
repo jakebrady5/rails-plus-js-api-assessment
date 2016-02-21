@@ -22,10 +22,11 @@ Rails.application.routes.draw do
   resources :customers
 
   resources :mechanics do 
-    resources :jobs, except: :index
+    resources :jobs
   end
 
   get '/jobs' => 'jobs#index'
+  post '/jobs' => 'jobs#create'
 
   get '/auth/facebook/callback' => 'sessions#create'
 

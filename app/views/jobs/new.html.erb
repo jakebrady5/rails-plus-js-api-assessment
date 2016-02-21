@@ -1,0 +1,15 @@
+<%= form_for @job do |f| %>
+  <%= f.label :mechanic_id %>
+  <%= f.collection_select :mechanic_id, @mechanics, :id, :name, {selected: @mechanic.id} %><br><br>
+
+  <%= f.label :customer_id %>
+  <%= f.collection_select :customer_id, @customers, :id, :name %><br><br>
+
+  <%= f.label :description %>
+  <%= f.text_field :description %><br><br>
+
+  <%= f.label :price %>
+  <%= f.text_field :price %><br><br>
+
+  <%= f.submit %>
+<% end %>
