@@ -1,10 +1,8 @@
 class CreateMechanics < ActiveRecord::Migration
   def change
     create_table :mechanics do |t|
-      t.integer :uid
+      t.integer :uid, limit: 8
       t.string :name
-      t.string :username
-      t.string :password_digest
 
       t.timestamps null: false
     end

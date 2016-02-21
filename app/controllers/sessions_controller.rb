@@ -8,12 +8,16 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_or_create_by_uid(auth['uid']) do |u|
-      u.info = auth['info']['name']
+    mechanic = Mechanic.find_or_create_by(uid: auth['uid']) do |u|
+      u.name = auth['info']['name']
       u.email = auth['info']['email']
+
+      # this is horrible, but pw can't be blank, revisit
+      u.password = "password"
     end
-    session[:user_id] = user.id
-    redirect_to '/mechanics'
+    sign_in(mechanic)
+    session[:mechanic_id] = mechanic.id
+    redirect_to mechanic_path(mechanic)
   end
 
   def auth

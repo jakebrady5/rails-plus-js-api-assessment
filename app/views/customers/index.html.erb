@@ -1,0 +1,5 @@
+<%= link_to "Add Customer", new_customer_path %><br><br>
+
+<% @customers.each do |cust| %>
+  <%= link_to cust.name, edit_customer_path(cust) %>
+<% end %>

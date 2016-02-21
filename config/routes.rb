@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :customers
-  resources :mechanics
+  devise_for :mechanics, :controllers => {registrations: 'registrations'}
+  # resources :customers
+  # resources :mechanics
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -17,20 +18,16 @@ Rails.application.routes.draw do
   #   resources :products
 
   get '/' => 'static#home'
-  get '/signin' => 'static#signin'
-  post '/signin' => 'sessions#verify'
-  get '/signup' => 'static#signup'
-  post '/signup' => 'sessions#new'
-  get '/logout' => 'sessions#destroy'
 
   resources :customers
 
   resources :mechanics do 
-    resources :customers
+    resources :jobs, except: :index
   end
 
+  get '/jobs' => 'jobs#index'
+
   get '/auth/facebook/callback' => 'sessions#create'
-  # get '/auth/facebook' => 'sessions#new'
 
   # Example resource route with options:
   #   resources :products do
