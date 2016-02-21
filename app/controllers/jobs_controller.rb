@@ -12,9 +12,16 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Job.create(job_params)
-    @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
-    redirect_to mechanic_job_path(@mechanic.id, @job.id)
+    @job = Job.new(job_params)
+    if @job.save
+      @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
+      redirect_to mechanic_job_path(@mechanic.id, @job.id)
+    else
+      @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
+      @mechanics = Mechanic.all
+      @customers = Customer.all
+      render 'new'
+    end
   end
 
   def show
