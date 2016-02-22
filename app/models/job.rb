@@ -9,10 +9,42 @@ class Job < ActiveRecord::Base
 
   accepts_nested_attributes_for :work_orders
 
-  def work_orders=(work_order)
-    order = WorkOrder.create(work_order)
+  def work_orders_attributes=(attributes)
     self.save
-    order.update(job_id: self.id)
+    attributes.each do |k, v|
+      order = WorkOrder.find_or_create_by(id: v[:id])
+      order.update(description: v[:description], price: v[:price], job_id: self.id)
+    end
+  end
+
+  # def work_orders=(work_order)
+  #   order = WorkOrder.create(work_order)
+  #   self.save
+  #   order.update(job_id: self.id)
+  # end
+
+  def complete?
+    self.work_orders.all == self.work_orders.all.where(status: 1)
+  end
+
+  def self.unfinished_jobs
+    unfinished = []
+    Job.all.each do |job|
+      if !job.complete?
+        unfinished << job
+      end
+    end
+    unfinished
+  end
+
+  def self.finished_jobs
+    finished = []
+    Job.all.each do |job|
+      if job.complete?
+        finished << job
+      end
+    end
+    finished
   end
 
 end

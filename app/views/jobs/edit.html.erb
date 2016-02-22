@@ -1,0 +1,34 @@
+<% if @job.errors.any? %>
+  <div id="error_explanation">
+    <h2>
+      <%= pluralize(@job.errors.count, "error") %>
+      prohibited this job from being saved:
+    </h2>
+ 
+    <ul>
+    <% @job.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %><br>
+
+<%= form_for @job, :url => url_for(:controller => 'jobs', :action => 'update'), method: :patch do |f| %>
+  <%= f.label :mechanic_id %>
+  <%= f.collection_select :mechanic_id, @mechanics, :id, :name, {selected: @mechanic.id} %><br><br>
+
+  <%= f.label :customer_id %>
+  <%= f.collection_select :customer_id, @customers, :id, :name %><br><br>
+
+  <div><h4>Work Order:</h4>
+    <%= f.fields_for :work_orders do |builder| %>
+      <%= builder.label :description %>
+      <%= builder.text_field :description %><br><br>
+
+      <%= builder.label :price %>
+      <%= builder.text_field :price %><br><br>
+    <% end %><br>
+  </div>
+
+  <%= f.submit %>
+<% end %>

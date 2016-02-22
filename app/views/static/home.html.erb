@@ -1,1 +1,36 @@
 <h1>Welcome to Fender Unbender!</h1>
+
+<div>
+  <h4>All Pending Jobs:</h4>
+  <ul>
+  <% Job.unfinished_jobs.each do |job| %>
+    <li>Mechanic: <%= job.mechanic.name %><br>Customer: <%= job.customer.name %><br>
+      <ul>
+        <% job.work_orders.each do |order| %>
+          <li>
+            <%= order.description %>, $<%= order.price %>, <%= order.status %><br>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %><br><br>
+  <% end %>
+  </ul>
+</div>
+
+<div>
+  <h4>All Completed Jobs:</h4>
+  <ul>
+  <% Job.finished_jobs.each do |job| %>
+    <li>Mechanic: <%= job.mechanic.name %><br>Customer: <%= job.customer.name %><br>
+      <ul>
+        <% job.work_orders.each do |order| %>
+          <li>
+            <%= order.description %>, $<%= order.price %>, <%= order.status %><br><br>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  </ul>
+</div>

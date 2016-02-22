@@ -9,7 +9,9 @@ class JobsController < ApplicationController
     @mechanics = Mechanic.all
     @customers = Customer.all
     @job = Job.new
-    @job.work_orders.build
+    3.times do
+      @job.work_orders.build
+    end
   end
 
   def create
@@ -30,9 +32,18 @@ class JobsController < ApplicationController
   end
 
   def edit
+    @mechanics = Mechanic.all
+    @customers = Customer.all
+    @job = Job.find(params[:id])
   end
 
   def update
+    @job = Job.find(params[:id])
+    if @job.update(job_params)
+      redirect_to mechanic_job_path(@job.mechanic.id, @job.id)
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -44,9 +55,7 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      strong = params.require(:job).permit(:mechanic_id, :customer_id)
-      strong[:work_orders] = params.require(:work_orders).permit(:description, :price)
-      strong
+      params.require(:job).permit(:mechanic_id, :customer_id, work_orders_attributes: [:description, :price, :id])
     end
 
 end

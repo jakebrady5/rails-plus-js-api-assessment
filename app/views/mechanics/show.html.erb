@@ -1,9 +1,26 @@
 <h1>Welcome, <%= current_mechanic.name %>!</h1>
 
 <div>
-  <p>Your Jobs:</p>
+  <h4>Your Pending Jobs:</h4>
   <ul>
-  <% @mechanic.jobs.each do |job| %>
+  <% @mechanic.unfinished_jobs.each do |job| %>
+    <li><%= job.customer.name %><br>
+      <ul>
+        <% job.work_orders.each do |order| %>
+          <li>
+            <%= order.description %>, $<%= order.price %>, <%= order.status %><br><br>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  </ul>
+</div>
+
+<div>
+  <h4>Your Completed Jobs:</h4>
+  <ul>
+  <% @mechanic.finished_jobs.each do |job| %>
     <li><%= job.customer.name %><br>
       <ul>
         <% job.work_orders.each do |order| %>
