@@ -11992,3 +11992,346 @@ Processing by StaticController#home as HTML
   Rendered static/home.html.erb within layouts/application (18.2ms)
   [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
 Completed 200 OK in 40ms (Views: 37.1ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 23:43:47 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.2ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  [1m[36mWorkOrder Load (0.4ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (59.3ms)
+Completed 200 OK in 291ms (Views: 253.2ms | ActiveRecord: 3.9ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 23:43:48 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (46.4ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 80ms (Views: 75.7ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 23:44:00 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"NlQvid1kScg+YRt2iYMSb9Np/ZliSol/y55rxP3W0ZpD2c6/IaT/XGPsBI3qi3EbYgGagspZ6Ua6AM8LmdWjAw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"3", "work_orders_attributes"=>{"0"=>{"description"=>"only one order", "price"=>"100"}, "1"=>{"description"=>"", "price"=>""}, "2"=>{"description"=>"", "price"=>""}}}, "commit"=>"Create Job"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["mechanic_id", 1], ["customer_id", 3], ["created_at", "2016-02-22 04:44:00.130143"], ["updated_at", "2016-02-22 04:44:00.130143"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "work_orders" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2016-02-22 04:44:00.133517"], ["updated_at", "2016-02-22 04:44:00.133517"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "work_orders" SET "description" = ?, "price" = ?, "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?[0m  [["description", "only one order"], ["price", 100], ["job_id", 14], ["updated_at", "2016-02-22 04:44:00.135779"], ["id", 15]]
+  [1m[35m (0.6ms)[0m  commit transaction
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "work_orders" ("created_at", "updated_at") VALUES (?, ?)[0m  [["created_at", "2016-02-22 04:44:00.139098"], ["updated_at", "2016-02-22 04:44:00.139098"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "work_orders" SET "description" = ?, "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?  [["description", ""], ["job_id", 14], ["updated_at", "2016-02-22 04:44:00.141315"], ["id", 16]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "work_orders" ("created_at", "updated_at") VALUES (?, ?)  [["created_at", "2016-02-22 04:44:00.144075"], ["updated_at", "2016-02-22 04:44:00.144075"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.2ms)[0m  [1mUPDATE "work_orders" SET "description" = ?, "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?[0m  [["description", ""], ["job_id", 14], ["updated_at", "2016-02-22 04:44:00.146284"], ["id", 17]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/14
+Completed 302 Found in 22ms (ActiveRecord: 6.5ms)
+
+
+Started GET "/mechanics/1/jobs/14" for ::1 at 2016-02-21 23:44:00 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"14"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 14]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 14]]
+  Rendered jobs/show.html.erb within layouts/application (5.7ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 32ms (Views: 30.1ms | ActiveRecord: 0.7ms)
+  [1m[36mJob Load (0.3ms)[0m  [1mSELECT  "jobs".* FROM "jobs"  ORDER BY "jobs"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (1.8ms)[0m  DELETE FROM "jobs" WHERE "jobs"."id" = ?  [["id", 14]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders"  ORDER BY "work_orders"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (7.9ms)[0m  DELETE FROM "work_orders" WHERE "work_orders"."id" = ?  [["id", 17]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders"  ORDER BY "work_orders"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (9.7ms)[0m  DELETE FROM "work_orders" WHERE "work_orders"."id" = ?  [["id", 16]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders"  ORDER BY "work_orders"."id" DESC LIMIT 1[0m
+  [1m[35mSQL (8.6ms)[0m  DELETE FROM "work_orders" WHERE "work_orders"."id" = ?  [["id", 15]]
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 23:46:50 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mWorkOrder Load (0.3ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (61.1ms)
+Completed 200 OK in 289ms (Views: 252.2ms | ActiveRecord: 2.9ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 23:46:52 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (34.8ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 69ms (Views: 64.4ms | ActiveRecord: 0.6ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 23:47:03 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"7JRLgjc5UG4xsHER7yPIuE0QEjRyWz/M0+yN8HFy6ZmZGaq0y/nm+mw9buqMK6vM/Hh1L9pIX/Wicik/FXGbAA==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"3", "work_orders_attributes"=>{"0"=>{"description"=>"only one order", "price"=>"100"}, "1"=>{"description"=>"", "price"=>""}, "2"=>{"description"=>"", "price"=>""}}}, "commit"=>"Create Job"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["mechanic_id", 1], ["customer_id", 3], ["created_at", "2016-02-22 04:47:03.143366"], ["updated_at", "2016-02-22 04:47:03.143366"]]
+  [1m[36m (1.6ms)[0m  [1mcommit transaction[0m
+  [1m[35mWorkOrder Load (0.3ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  rollback transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "work_orders" ("description", "price", "job_id", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?)  [["description", "only one order"], ["price", 100], ["job_id", 15], ["created_at", "2016-02-22 04:47:03.151565"], ["updated_at", "2016-02-22 04:47:03.151565"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  rollback transaction
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" IS NULL LIMIT 1[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.0ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mrollback transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/15
+Completed 302 Found in 25ms (ActiveRecord: 4.6ms)
+
+
+Started GET "/mechanics/1/jobs/15" for ::1 at 2016-02-21 23:47:03 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"15"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.2ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 15]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 15]]
+  Rendered jobs/show.html.erb within layouts/application (3.0ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 35ms (Views: 29.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 23:47:23 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 10], ["status", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 12], ["status", 1]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 13], ["status", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 15]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 15], ["status", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 10], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 12], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 13], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 15], ["status", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (42.3ms)
+Completed 200 OK in 67ms (Views: 65.0ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/" for ::1 at 2016-02-21 23:47:25 -0500
+Processing by StaticController#home as HTML
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs"
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 11]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 11], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 15]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 15], ["status", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 11]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mCACHE (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "jobs".* FROM "jobs"
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 10], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 11]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 11], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 12]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 12], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 13], ["status", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 15]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?  [["job_id", 15], ["status", 1]]
+  Rendered static/home.html.erb within layouts/application (33.7ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 61ms (Views: 58.2ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/mechanics/1/jobs/13/edit" for ::1 at 2016-02-21 23:47:28 -0500
+Processing by JobsController#edit as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"13"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 13]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  Rendered jobs/edit.html.erb within layouts/application (12.6ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 37ms (Views: 33.4ms | ActiveRecord: 0.6ms)
+
+
+Started PATCH "/mechanics/1/jobs/13" for ::1 at 2016-02-21 23:47:32 -0500
+Processing by JobsController#update as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"LwqYBuAjTNAvYNeRYoOlAuW/7ovZofNqi7f9/FhVh/Vah3kwHOP6RHLtyGoBi8Z2VNeJkHGyk1P6KVkzPFb1bA==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1", "work_orders_attributes"=>{"0"=>{"description"=>"", "price"=>"", "id"=>"9"}, "1"=>{"description"=>"tire change", "price"=>"399", "id"=>"10"}, "2"=>{"description"=>"windshield replacement", "price"=>"400", "id"=>"11"}, "3"=>{"description"=>"shocks", "price"=>"199", "id"=>"12"}, "4"=>{"description"=>"struts", "price"=>"189", "id"=>"13"}, "5"=>{"description"=>"springs", "price"=>"450", "id"=>"14"}}}, "commit"=>"Update Job", "mechanic_id"=>"1", "id"=>"13"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 13]]
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1[0m  [["id", 9]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1  [["id", 10]]
+  [1m[36mWorkOrder Load (0.0ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1[0m  [["id", 11]]
+  [1m[35mWorkOrder Load (0.0ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1  [["id", 12]]
+  [1m[36mWorkOrder Load (0.0ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1[0m  [["id", 13]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT  "work_orders".* FROM "work_orders" WHERE "work_orders"."id" = ? LIMIT 1  [["id", 14]]
+  [1m[36m (0.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/13
+Completed 302 Found in 15ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/mechanics/1/jobs/13" for ::1 at 2016-02-21 23:47:33 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"13"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 13]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.3ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  Rendered jobs/show.html.erb within layouts/application (8.9ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 41ms (Views: 39.0ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/" for ::1 at 2016-02-21 23:47:40 -0500
+Processing by StaticController#home as HTML
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT "jobs".* FROM "jobs"[0m
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 10], ["status", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 11]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 11], ["status", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 12], ["status", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 13], ["status", 1]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 15]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 15], ["status", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 11]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 13]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "jobs".* FROM "jobs"[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 10], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 11]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 11], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 12]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 12], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 13]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 13], ["status", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 15]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ? AND "work_orders"."status" = ?[0m  [["job_id", 15], ["status", 1]]
+  Rendered static/home.html.erb within layouts/application (24.7ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 45ms (Views: 42.7ms | ActiveRecord: 2.1ms)
