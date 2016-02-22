@@ -5954,3 +5954,2735 @@ Processing by MechanicsController#show as HTML
   [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 2]]
   Rendered mechanics/show.html.erb within layouts/application (6.1ms)
 Completed 200 OK in 23ms (Views: 21.9ms | ActiveRecord: 0.8ms)
+  [1m[36m (0.9ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to CreateMechanics (20160214223040)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "mechanics" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "uid" integer(8), "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160214223040"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Migrating to CreateCustomers (20160214223130)
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "customers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160214223130"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateJobs (20160214223313)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "jobs" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "mechanic_id" integer, "customer_id" integer, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160214223313"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Migrating to AddDeviseToMechanics (20160220030534)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "mechanics" ADD "email" varchar DEFAULT '' NOT NULL
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "mechanics" ADD "encrypted_password" varchar DEFAULT '' NOT NULL[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "mechanics" ADD "reset_password_token" varchar
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "mechanics" ADD "reset_password_sent_at" datetime[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "mechanics" ADD "remember_created_at" datetime
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "mechanics" ADD "sign_in_count" integer DEFAULT 0 NOT NULL[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "mechanics" ADD "current_sign_in_at" datetime
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "mechanics" ADD "last_sign_in_at" datetime[0m
+  [1m[35m (0.1ms)[0m  ALTER TABLE "mechanics" ADD "current_sign_in_ip" varchar
+  [1m[36m (0.1ms)[0m  [1mALTER TABLE "mechanics" ADD "last_sign_in_ip" varchar[0m
+  [1m[35m (0.3ms)[0m  CREATE UNIQUE INDEX "index_mechanics_on_email" ON "mechanics" ("email")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_mechanics_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_mechanics_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE UNIQUE INDEX "index_mechanics_on_reset_password_token" ON "mechanics" ("reset_password_token")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160220030534"]]
+  [1m[35m (0.6ms)[0m  commit transaction
+Migrating to CreateWorkOrders (20160221210104)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "work_orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" varchar, "price" integer, "job_id" integer, "status" integer DEFAULT 0, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160221210104"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_mechanics_on_reset_password_token' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_mechanics_on_reset_password_token' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_mechanics_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_mechanics_on_email' AND type='index'
+[0m
+
+
+Started GET "/" for ::1 at 2016-02-21 18:03:35 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by StaticController#home as HTML
+  Rendered static/home.html.erb within layouts/application (4.5ms)
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 270ms (Views: 250.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/auth/facebook" for ::1 at 2016-02-21 18:03:37 -0500
+
+
+Started GET "/auth/facebook" for ::1 at 2016-02-21 18:03:37 -0500
+
+
+Started GET "/auth/facebook/callback?code=AQCGN-DrqpKlVASe-VYzlFU_uERUss5_rQSE74gWA2XhJisMM6AhACA8OxTl_f6l0tCl5EjAxNkCi5tNwa361-3Yai1e1lZiAG3ErGMWuneOS8x35vLdQQ2OsZJGclW1y5R_cwu9CB_10RX5hAsFGJv31mDVVu9siw4ZG-U2eT3eNyjF-K5I62tatHcNBCtOOBTzYaa37fUZhwWR4MxVzSvpenJdDDLugTg8rcFPqv71w7mfmCa10-vtAYec-qq6EN651q_O_2FNFod1Zuw2NqYI2OwDXdZwCyQy16sF88giFbtN4mwLyhSGU19vwlPkyO0&state=1cec816ef8175608015a43ea40d06d7251a8a6100ba91db6" for ::1 at 2016-02-21 18:03:37 -0500
+Processing by SessionsController#create as HTML
+  Parameters: {"code"=>"AQCGN-DrqpKlVASe-VYzlFU_uERUss5_rQSE74gWA2XhJisMM6AhACA8OxTl_f6l0tCl5EjAxNkCi5tNwa361-3Yai1e1lZiAG3ErGMWuneOS8x35vLdQQ2OsZJGclW1y5R_cwu9CB_10RX5hAsFGJv31mDVVu9siw4ZG-U2eT3eNyjF-K5I62tatHcNBCtOOBTzYaa37fUZhwWR4MxVzSvpenJdDDLugTg8rcFPqv71w7mfmCa10-vtAYec-qq6EN651q_O_2FNFod1Zuw2NqYI2OwDXdZwCyQy16sF88giFbtN4mwLyhSGU19vwlPkyO0", "state"=>"1cec816ef8175608015a43ea40d06d7251a8a6100ba91db6"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."uid" = ? LIMIT 1[0m  [["uid", 10103299793763668]]
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mMechanic Exists (0.2ms)[0m  [1mSELECT  1 AS one FROM "mechanics" WHERE "mechanics"."email" = 'jakebrady5@gmail.com' LIMIT 1[0m
+  [1m[35mCACHE (0.1ms)[0m  SELECT  1 AS one FROM "mechanics" WHERE "mechanics"."email" = 'jakebrady5@gmail.com' LIMIT 1
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "mechanics" ("uid", "name", "email", "encrypted_password", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?)[0m  [["uid", 10103299793763668], ["name", "Jake Brady"], ["email", "jakebrady5@gmail.com"], ["encrypted_password", "$2a$10$JQGsk9r0MgfHS0MKyPxIV.sllY3sbN4CFKgq4Grn5bIhL9dgBYqXa"], ["created_at", "2016-02-21 23:03:38.052442"], ["updated_at", "2016-02-21 23:03:38.052442"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "mechanics" SET "last_sign_in_at" = ?, "current_sign_in_at" = ?, "last_sign_in_ip" = ?, "current_sign_in_ip" = ?, "sign_in_count" = ?, "updated_at" = ? WHERE "mechanics"."id" = ?  [["last_sign_in_at", "2016-02-21 23:03:38.056501"], ["current_sign_in_at", "2016-02-21 23:03:38.056501"], ["last_sign_in_ip", "::1"], ["current_sign_in_ip", "::1"], ["sign_in_count", 1], ["updated_at", "2016-02-21 23:03:38.057424"], ["id", 1]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/mechanics/1
+Completed 302 Found in 130ms (ActiveRecord: 2.9ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 18:03:38 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.2ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (36.7ms)
+Completed 200 OK in 79ms (Views: 74.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-02-21 18:03:46 -0500
+Processing by CustomersController#new as HTML
+  Rendered customers/new.html.erb within layouts/application (27.9ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 97ms (Views: 91.9ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/customers" for ::1 at 2016-02-21 18:03:51 -0500
+Processing by CustomersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"VjvEW1gfQeEXOI7QX+jgr1DZMlDmYEbOvb0FOAXhOfmtOHmehjQ+nG5lS19TcWCoxN6YUv4dpLTvHNi8WtsJhg==", "customer"=>{"name"=>"Rosco"}, "commit"=>"Create Customer"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mCustomer Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "customers" WHERE "customers"."name" = 'Rosco' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "customers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)  [["name", "Rosco"], ["created_at", "2016-02-21 23:03:51.636783"], ["updated_at", "2016-02-21 23:03:51.636783"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 6ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/customers" for ::1 at 2016-02-21 18:03:51 -0500
+Processing by CustomersController#index as HTML
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered customers/index.html.erb within layouts/application (1.2ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 18ms (Views: 17.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-02-21 18:03:53 -0500
+Processing by CustomersController#new as HTML
+  Rendered customers/new.html.erb within layouts/application (1.9ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 20ms (Views: 19.2ms | ActiveRecord: 0.1ms)
+
+
+Started POST "/customers" for ::1 at 2016-02-21 18:03:57 -0500
+Processing by CustomersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"qFge06up8XklozttFJ5iLpU/Z2WQaPAFICFclsQDxuNTW6MWdYKOBFz+/uIYB+IpATjNZ4gVEn9ygIESmzn2nA==", "customer"=>{"name"=>"Pepe"}, "commit"=>"Create Customer"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mCustomer Exists (0.2ms)[0m  SELECT  1 AS one FROM "customers" WHERE "customers"."name" = 'Pepe' LIMIT 1
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "customers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["name", "Pepe"], ["created_at", "2016-02-21 23:03:57.200797"], ["updated_at", "2016-02-21 23:03:57.200797"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 7ms (ActiveRecord: 0.9ms)
+
+
+Started GET "/customers" for ::1 at 2016-02-21 18:03:57 -0500
+Processing by CustomersController#index as HTML
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (0.9ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 26ms (Views: 25.4ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-02-21 18:03:58 -0500
+Processing by CustomersController#new as HTML
+  Rendered customers/new.html.erb within layouts/application (2.8ms)
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 67ms (Views: 65.4ms | ActiveRecord: 0.3ms)
+
+
+Started POST "/customers" for ::1 at 2016-02-21 18:04:59 -0500
+Processing by CustomersController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"70XY5HgRUP4fj4OvZs/lmjtfy/ZsNMnG9C+P9yxLRRIURmUhpjovg2bSRiBqVmWdr1hh9HRJK7ymjlJzc3F1bQ==", "customer"=>{"name"=>"Guillermo"}, "commit"=>"Create Customer"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mCustomer Exists (0.1ms)[0m  [1mSELECT  1 AS one FROM "customers" WHERE "customers"."name" = 'Guillermo' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "customers" ("name", "created_at", "updated_at") VALUES (?, ?, ?)  [["name", "Guillermo"], ["created_at", "2016-02-21 23:04:59.538004"], ["updated_at", "2016-02-21 23:04:59.538004"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://localhost:3000/customers
+Completed 302 Found in 5ms (ActiveRecord: 1.0ms)
+
+
+Started GET "/customers" for ::1 at 2016-02-21 18:04:59 -0500
+Processing by CustomersController#index as HTML
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered customers/index.html.erb within layouts/application (0.9ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 20ms (Views: 19.0ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/customers/new" for ::1 at 2016-02-21 18:05:01 -0500
+Processing by CustomersController#new as HTML
+  Rendered customers/new.html.erb within layouts/application (2.4ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 23ms (Views: 22.6ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/customers" for ::1 at 2016-02-21 18:05:11 -0500
+Processing by CustomersController#index as HTML
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered customers/index.html.erb within layouts/application (1.7ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 22ms (Views: 21.2ms | ActiveRecord: 0.2ms)
+
+
+Started GET "/" for ::1 at 2016-02-21 18:05:15 -0500
+Processing by StaticController#home as HTML
+  Rendered static/home.html.erb within layouts/application (0.0ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 24ms (Views: 23.4ms | ActiveRecord: 0.1ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 18:05:17 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (4.1ms)
+Completed 200 OK in 28ms (Views: 26.1ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:05:18 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (14.1ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 50ms (Views: 40.5ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:06:33 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (4.6ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 23ms (Views: 21.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:06:33 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:08:11 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (4.8ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 24ms (Views: 23.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:08:11 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:08:33 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.3ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (8.8ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 30ms (Views: 28.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:08:33 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:09:12 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.1ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 28ms (Views: 26.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:09:12 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:09:18 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (7.7ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 30ms (Views: 27.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:09:18 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:09:24 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.1ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 21ms (Views: 19.3ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:09:24 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:09:32 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (4.7ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 21ms (Views: 19.4ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:09:32 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:12:58 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.9ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 24ms (Views: 22.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:12:58 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:13:07 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.2ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 23ms (Views: 20.4ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:13:07 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:13:39 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (6.2ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 27ms (Views: 25.2ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:13:39 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:16:13 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FmwE8ILvyq/ODs5BEVqV0k29DpJb262fR8pd3DCxQLztb7k1XMS10rdTC84dwxXV2bqkkEOmT+UVa4BYb4twww==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"98"}, "commit"=>"Create Job"}
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:25:02 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"FmwE8ILvyq/ODs5BEVqV0k29DpJb262fR8pd3DCxQLztb7k1XMS10rdTC84dwxXV2bqkkEOmT+UVa4BYb4twww==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"98"}, "commit"=>"Create Job"}
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:25:26 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (32.3ms)
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 287ms (Views: 234.2ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:25:26 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:25:43 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"btGoki6e7un8HDzTKgYUNIyZ6zAeEPy/VkWFoWqlPFCV0hVX8LWRlIVB+Vwmn5QzGJ5BMgZtHsUE5FglNZ8MLw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"98"}, "commit"=>"Create Job"}
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:36:45 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (37.3ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 292ms (Views: 240.1ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:36:45 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:36:55 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (6.1ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 63ms (Views: 60.7ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:36:55 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:37:06 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"XiCZxWfn86IQjzhQCAebBsDXZcxCfN4pS5JApL+1iwWlIyQAucyM32nS/d8EnhsBVNDPzloBPFMZM50g4I+7eg==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-21 23:37:46.687112"], ["updated_at", "2016-02-21 23:37:46.687112"]]
+  [1m[35m (2.1ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/1
+Completed 302 Found in 39988ms (ActiveRecord: 3.0ms)
+
+
+Started GET "/mechanics/1/jobs/1" for ::1 at 2016-02-21 18:37:46 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (43.4ms)
+Completed 500 Internal Server Error in 68ms (ActiveRecord: 1.4ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7ccf2e438>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (4.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (55.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (54.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (137.6ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:38:43 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"XiCZxWfn86IQjzhQCAebBsDXZcxCfN4pS5JApL+1iwWlIyQAucyM32nS/d8EnhsBVNDPzloBPFMZM50g4I+7eg==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-21 23:39:59.532838"], ["updated_at", "2016-02-21 23:39:59.532838"]]
+  [1m[35m (2.3ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/2
+Completed 302 Found in 76219ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/mechanics/1/jobs/2" for ::1 at 2016-02-21 18:39:59 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"2"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (11.6ms)
+Completed 500 Internal Server Error in 32ms (ActiveRecord: 1.2ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7cc65dae8>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (11.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (70.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (72.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (4.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (131.0ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:40:03 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (5.4ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 23ms (Views: 21.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:40:03 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:40:10 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"oP+QFAIf+LiTmK6KV8i98kiT2UNX6S58Hv2FfGk2v8Bb/C3R3DSHxerFawVbUT313JRzQU+UzAZMXFj4NgyPvw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 500 Internal Server Error in 302320ms (ActiveRecord: 0.0ms)
+
+TypeError (no implicit conversion of Symbol into Integer):
+  app/controllers/jobs_controller.rb:47:in `[]'
+  app/controllers/jobs_controller.rb:47:in `job_params'
+  app/controllers/jobs_controller.rb:16:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (16.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (65.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (49.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (126.8ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:45:22 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (6.2ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 51ms (Views: 33.8ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:45:22 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:45:25 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"5pP81Vt1wB/TW9k9JEJW+u0dOjsw89tZOGDcD5nc9ZwdkEEQhV6/YqoGHLIo29b9eRqQOSiOOSNqwQGLxubF4w==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 500 Internal Server Error in 179287ms (ActiveRecord: 0.0ms)
+
+SystemExit (exit):
+  app/controllers/jobs_controller.rb:15:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (14.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (60.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (61.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (130.8ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:48:31 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (25.1ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 85ms (Views: 60.8ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:48:31 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:48:35 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"DU0r/LDJWHKstrY3MCDa8hXTquXefNMGBDwTe0g2o4D2TpY5buInD9Xrc7g8uVr1gdQA58YBMXxWnc7/FwyT/w==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, job, work_orders, commit
+Completed 500 Internal Server Error in 168930ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::UnknownAttributeError (unknown attribute 'description' for Job.):
+  app/controllers/jobs_controller.rb:16:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (45.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (61.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (135.0ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:51:29 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.5ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (7.9ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 65ms (Views: 39.2ms | ActiveRecord: 2.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:51:29 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:51:32 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"/67vNA7hQJUf/LgQ7qJ+YV5YrvONMWXuUDT8lUH08gQErVLx0Mo/6GahfZ/iO/5myl8E8ZVMh5QClSERHs7Cew==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, commit
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-21 23:58:03.064851"], ["updated_at", "2016-02-21 23:58:03.064851"]]
+  [1m[35m (1.8ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/3
+Completed 302 Found in 390491ms (ActiveRecord: 3.0ms)
+
+
+Started GET "/mechanics/1/jobs/3" for ::1 at 2016-02-21 18:58:03 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"3"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.3ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (27.8ms)
+Completed 500 Internal Server Error in 62ms (ActiveRecord: 2.0ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d2a56a90>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (14.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (55.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (56.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (125.2ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:58:08 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 0.1ms)
+
+NoMethodError (undefined method `work_order' for #<Job:0x007fb7d3cf7410>):
+  app/controllers/jobs_controller.rb:12:in `new'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (45.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (53.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (132.4ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:58:14 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.3ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (9.7ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 87ms (Views: 48.6ms | ActiveRecord: 5.7ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:58:14 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:58:30 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"aZtMl8fEWsPiC17obga52vg6XA/fj/C8UIP0YZfDLe2SmPFSGe8lvptWm2dinzndbD32DcfyEsYCIinlyPkdkg==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, commit
+Completed 500 Internal Server Error in 37717ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::UnknownAttributeError (unknown attribute 'job' for Job.):
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (48.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (1.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (65.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (139.8ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 18:59:09 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (13.2ms)
+Completed 500 Internal Server Error in 22ms (ActiveRecord: 0.5ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d08da790>):
+    4:   <p>Your Jobs:</p>
+    5:   <ul>
+    6:   <% @mechanic.jobs.each do |job| %>
+    7:     <li><%= job.customer.name %> - <%= job.description %> - $<%= job.price %></li>
+    8:   <% end %>
+    9:   </ul>
+   10: </div>
+  app/views/mechanics/show.html.erb:7:in `block in _app_views_mechanics_show_html_erb__3656373642531566904_70213691865580'
+  app/views/mechanics/show.html.erb:6:in `_app_views_mechanics_show_html_erb__3656373642531566904_70213691865580'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (53.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (110.8ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 18:59:09 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (1.9ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (14.2ms)
+Completed 500 Internal Server Error in 39ms (ActiveRecord: 2.3ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d39b51d0>):
+    4:   <p>Your Jobs:</p>
+    5:   <ul>
+    6:   <% @mechanic.jobs.each do |job| %>
+    7:     <li><%= job.customer.name %> - <%= job.description %> - $<%= job.price %></li>
+    8:   <% end %>
+    9:   </ul>
+   10: </div>
+  app/views/mechanics/show.html.erb:7:in `block in _app_views_mechanics_show_html_erb__3656373642531566904_70213729828260'
+  app/views/mechanics/show.html.erb:6:in `_app_views_mechanics_show_html_erb__3656373642531566904_70213729828260'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (10.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (60.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (48.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (112.9ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:59:22 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (11.1ms)
+Completed 500 Internal Server Error in 16ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (undefined method `description' for #<WorkOrder::ActiveRecord_Associations_CollectionProxy:0x007fb7d27d76c0>):
+    23:   <div><h4>Work Order:</h4>
+    24:     <%= fields_for @job.work_orders do |builder| %>
+    25:       <%= builder.label :description %>
+    26:       <%= builder.text_field :description %><br><br>
+    27: 
+    28:       <%= builder.label :price %>
+    29:       <%= builder.text_field :price %><br><br>
+  app/views/jobs/new.html.erb:26:in `block (2 levels) in _app_views_jobs_new_html_erb__2279762578186446528_70213753843960'
+  app/views/jobs/new.html.erb:24:in `block in _app_views_jobs_new_html_erb__2279762578186446528_70213753843960'
+  app/views/jobs/new.html.erb:16:in `_app_views_jobs_new_html_erb__2279762578186446528_70213753843960'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (9.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (3.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (2.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (76.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (42.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (118.9ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 18:59:42 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (7.6ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 27ms (Views: 24.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 18:59:42 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 18:59:48 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"qDVv8o1xdJavX9T6TTY9vF8DSmrUBhvh2lWg6FKk/RtTNtI3U1oL69YCEXVBr727ywTgaMx7+ZuI9H1sDZ7NZA==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, work_order, commit
+Completed 500 Internal Server Error in 124380ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::UnknownAttributeError (unknown attribute 'job' for Job.):
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (44.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (63.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (2.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (149.8ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:01:56 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.3ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (21.1ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 75ms (Views: 46.8ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:01:56 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:01:58 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"EvYLyPvbivZXAK2OQvODsnpdUzT8EiVQTcSO6uTFs+zp9bYNJfD1iy5daAFOagO17lr5NuRvxyofZVNuu/+Dkw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:02:09.859014"], ["updated_at", "2016-02-22 00:02:09.859014"]]
+  [1m[35m (1.7ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/4
+Completed 302 Found in 11277ms (ActiveRecord: 2.3ms)
+
+
+Started GET "/mechanics/1/jobs/4" for ::1 at 2016-02-21 19:02:09 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"4"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 4]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.5ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (26.3ms)
+Completed 500 Internal Server Error in 36ms (ActiveRecord: 0.8ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d3ed8860>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (51.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (129.6ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:02:14 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (5.1ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 24ms (Views: 21.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:02:14 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:02:26 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"wFOrjwCx3E78P6VrfSnAaCUw49X8pkw7ZTC09ZLm+Jc7UBZK3pqjM4ViYORxsEBvsTdJ1+TbrkE3kWlxzdzI6A==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:02:51.285045"], ["updated_at", "2016-02-22 00:02:51.285045"]]
+  [1m[35m (2.2ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/5
+Completed 302 Found in 25106ms (ActiveRecord: 4.2ms)
+
+
+Started GET "/mechanics/1/jobs/5" for ::1 at 2016-02-21 19:02:51 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"5"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 5]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (19.0ms)
+Completed 500 Internal Server Error in 47ms (ActiveRecord: 1.9ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d0fde848>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (47.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (51.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (124.7ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:02:55 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (3.9ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 31ms (Views: 19.8ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:02:55 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:03:00 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"RtzqsMNlIz22Tj2Wm8UGL6OriI2vRPE1/oPD41T1Loy931d1HU5cQM8T+BmXXIYoN6wij7c5E0+sIh5nC88e8w==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+Unpermitted parameters: utf8, authenticity_token, job, work_order, commit
+Completed 500 Internal Server Error in 131774ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::UnknownAttributeError (unknown attribute 'work_order' for Job.):
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (49.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (5.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (57.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (3.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (140.9ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:05:16 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (11.2ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 88ms (Views: 52.0ms | ActiveRecord: 2.2ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:05:16 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:05:20 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"CxFObIUfxXxYl8IhMrRMVaclNooZu/mk3CCe2Gd97tXwEvOpWzS6ASHKB64+LcxSMyKciAHGG96OgUNcOEfeqg==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 500 Internal Server Error in 20225ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::UnknownAttributeError (unknown attribute 'work_order' for Job.):
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (45.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (1.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (58.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (120.6ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:13:52 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.4ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.4ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (17.4ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 100ms (Views: 59.7ms | ActiveRecord: 2.7ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:13:52 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:13:56 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"j+wEHZeMhEpTwID3Gffnc4vi9SN85EyWzAl/UBUsNxt077nYSaf7NyqdRXgVbmd0H+VfIWSZruyeqKLUShYHZA==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_order"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 500 Internal Server Error in 9224ms (ActiveRecord: 0.0ms)
+
+ArgumentError (wrong number of arguments (1 for 0)):
+  app/models/job.rb:16:in `work_order='
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (51.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (93.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (168.4ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:17:17 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (7.3ms)
+Completed 500 Internal Server Error in 37ms (ActiveRecord: 1.4ms)
+
+ActionView::Template::Error (undefined method `model_name' for nil:NilClass):
+    21:   <%= f.collection_select :customer_id, @customers, :id, :name %><br><br>
+    22: 
+    23:   <div><h4>Work Order:</h4>
+    24:     <%= fields_for @work_order do |builder| %>
+    25:       <%= builder.label :description %>
+    26:       <%= builder.text_field :description %><br><br>
+    27: 
+  app/views/jobs/new.html.erb:24:in `block in _app_views_jobs_new_html_erb__2279762578186446528_70213696178700'
+  app/views/jobs/new.html.erb:16:in `_app_views_jobs_new_html_erb__2279762578186446528_70213696178700'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (50.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (39.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (89.0ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:17:36 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (4.7ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 22ms (Views: 20.0ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:17:36 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:17:42 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"4QnBvWD+ccNH+xS5KjLDLcnaoHtVZg3GfhFe2jlin6gaCnx4vtUOvj6m0TYmq0MqXd0KeU0b77wssINeZliv1w==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 400 Bad Request in 37771ms (ActiveRecord: 0.0ms)
+
+ActionController::ParameterMissing (param is missing or the value is empty: work_order):
+  app/controllers/jobs_controller.rb:49:in `job_params'
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (4.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (49.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (56.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (6.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (128.3ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:18:23 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.7ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 65ms (Views: 36.1ms | ActiveRecord: 1.9ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:18:23 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:18:27 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"CcI8p0fb98B6bjGjZTJk93EfKGlyoAY+c0hj89NGjxjywYFimfCIvQMz9Cxpq+Tw5RiCa2rd5EQh6b53jHy/Zw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+Completed 500 Internal Server Error in 9060ms (ActiveRecord: 0.0ms)
+
+ActiveRecord::AssociationTypeMismatch (WorkOrder(#70213730695620) expected, got Array(#70213676985560)):
+  app/controllers/jobs_controller.rb:17:in `create'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (47.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.8ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (54.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (126.3ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:20:18 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (14.3ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 73ms (Views: 48.5ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:20:19 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:20:23 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"rnHMHqButy84h3xr/xzTtF4VUEqzjCCXaaFO6ur8dqpVcnHbfkXIUkHaueTzhVOzyhL6SKvxwu07AJNutcZG1Q==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["description", "oil"], ["price", 40], ["created_at", "2016-02-22 00:20:47.528264"], ["updated_at", "2016-02-22 00:20:47.528264"]]
+  [1m[36m (0.6ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:22:14.185406"], ["updated_at", "2016-02-22 00:22:14.185406"]]
+  [1m[35mSQL (0.2ms)[0m  UPDATE "work_orders" SET "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?  [["job_id", 6], ["updated_at", "2016-02-22 00:22:14.188220"], ["id", 1]]
+  [1m[36m (1.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["description", "oil"], ["price", 40], ["created_at", "2016-02-22 00:23:16.635382"], ["updated_at", "2016-02-22 00:23:16.635382"]]
+  [1m[35m (1.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "work_orders" SET "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?  [["job_id", 6], ["updated_at", "2016-02-22 00:23:16.640094"], ["id", 2]]
+  [1m[36m (0.8ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/6
+Completed 302 Found in 173405ms (ActiveRecord: 7.3ms)
+
+
+Started GET "/mechanics/1/jobs/6" for ::1 at 2016-02-21 19:23:16 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"6"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 6]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (12.8ms)
+Completed 500 Internal Server Error in 33ms (ActiveRecord: 1.4ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d23ce290>):
+    1: Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
+    2: Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
+    3: Description: <%= @job.description %><br>
+    4: Price: $<%= @job.price %>
+  app/views/jobs/show.html.erb:3:in `_app_views_jobs_show_html_erb___2457660164372603672_70213697174360'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (49.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (1.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (73.1ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (156.2ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:23:25 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (5.2ms)
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 30ms (Views: 21.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:23:25 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:25:43 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (3.9ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 22ms (Views: 19.5ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:25:44 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:25:59 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"RgLuewJOmdZwRqEzUMHe8xD/o5QxNYgdSZcmOzIfKVC9AVO+3GXmqwkbZLxcWF70hPgJlilIamcbNvu/bSUZLw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"40"}, "commit"=>"Create Job"}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["description", "oil"], ["price", 40], ["created_at", "2016-02-22 00:25:59.737328"], ["updated_at", "2016-02-22 00:25:59.737328"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:25:59.740707"], ["updated_at", "2016-02-22 00:25:59.740707"]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/7
+Completed 302 Found in 27ms (ActiveRecord: 3.9ms)
+
+
+Started GET "/mechanics/1/jobs/7" for ::1 at 2016-02-21 19:25:59 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"7"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 7]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.3ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 7]]
+  Rendered jobs/show.html.erb within layouts/application (25.2ms)
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 64ms (Views: 57.3ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/mechanics/1/jobs/7" for ::1 at 2016-02-21 19:26:32 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"7"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 7]]
+  [1m[35mWorkOrder Load (0.5ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 7]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders"[0m
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (9.5ms)
+  [1m[35mMechanic Load (8.7ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 77816ms (Views: 41.5ms | ActiveRecord: 11.6ms)
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:27:50 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.6ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (25.1ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 78ms (Views: 44.4ms | ActiveRecord: 3.1ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:27:50 -0500
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:27:54 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V7eiAVlnfU32S4zI4xAsiP8o0IA+QAuZQycr5++z53ystB/Eh0wCMI8WSUfviayPay96giY96eMRhvZjsInXAw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"41"}, "commit"=>"Create Job"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["description", "oil"], ["price", 41], ["created_at", "2016-02-22 00:27:54.565732"], ["updated_at", "2016-02-22 00:27:54.565732"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.4ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:28:00.954919"], ["updated_at", "2016-02-22 00:28:00.954919"]]
+  [1m[35m (2.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  commit transaction
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.0ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/8
+Completed 302 Found in 37795ms (ActiveRecord: 5.0ms)
+
+
+Started GET "/mechanics/1/jobs/8" for ::1 at 2016-02-21 19:28:32 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"8"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 8]]
+  [1m[35mWorkOrder Load (0.3ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 8]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT  "work_orders".* FROM "work_orders"  ORDER BY "work_orders"."id" DESC LIMIT 1[0m
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (5.1ms)
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 45362ms (Views: 23.3ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:29:23 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"V7eiAVlnfU32S4zI4xAsiP8o0IA+QAuZQycr5++z53ystB/Eh0wCMI8WSUfviayPay96giY96eMRhvZjsInXAw==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"1"}, "work_orders"=>{"description"=>"oil", "price"=>"41"}, "commit"=>"Create Job"}
+  [1m[36m (0.0ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["description", "oil"], ["price", 41], ["created_at", "2016-02-22 00:29:23.622836"], ["updated_at", "2016-02-22 00:29:23.622836"]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 1], ["created_at", "2016-02-22 00:29:25.704405"], ["updated_at", "2016-02-22 00:29:25.704405"]]
+  [1m[35m (2.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "work_orders" SET "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?  [["job_id", 9], ["updated_at", "2016-02-22 00:29:25.709719"], ["id", 5]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.1ms)[0m  [1mcommit transaction[0m
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/9
+Completed 302 Found in 2139ms (ActiveRecord: 7.4ms)
+
+
+Started GET "/mechanics/1/jobs/9" for ::1 at 2016-02-21 19:29:25 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"9"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 9]]
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (8.4ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  Rendered jobs/show.html.erb within layouts/application (41.1ms)
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 2270ms (Views: 67.1ms | ActiveRecord: 9.7ms)
+
+
+Started GET "/mechanics/1/jobs/9" for ::1 at 2016-02-21 19:32:57 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"9"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 9]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  Rendered jobs/show.html.erb within layouts/application (2.4ms)
+  [1m[35mMechanic Load (0.5ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 24698ms (Views: 49.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:33:21 -0500
+
+
+Started GET "/mechanics/1/jobs/9" for ::1 at 2016-02-21 19:34:04 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"9"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 9]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  Rendered jobs/show.html.erb within layouts/application (47.3ms)
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 81ms (Views: 65.2ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:34:04 -0500
+
+
+Started GET "/mechanics/1/jobs/9" for ::1 at 2016-02-21 19:34:34 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"9"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 9]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  Rendered jobs/show.html.erb within layouts/application (4.8ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 23ms (Views: 21.2ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:34:34 -0500
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:38:45 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (7.3ms)
+Completed 500 Internal Server Error in 15ms (ActiveRecord: 0.5ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d491bc50>):
+    4:   <p>Your Jobs:</p>
+    5:   <ul>
+    6:   <% @mechanic.jobs.each do |job| %>
+    7:     <li><%= job.customer.name %> - <%= job.description %> - $<%= job.price %></li>
+    8:   <% end %>
+    9:   </ul>
+   10: </div>
+  app/views/mechanics/show.html.erb:7:in `block in _app_views_mechanics_show_html_erb__3656373642531566904_70213691865580'
+  app/views/mechanics/show.html.erb:6:in `_app_views_mechanics_show_html_erb__3656373642531566904_70213691865580'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.3ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (49.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (60.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (127.1ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:38:46 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (5.7ms)
+Completed 500 Internal Server Error in 12ms (ActiveRecord: 0.4ms)
+
+ActionView::Template::Error (undefined method `description' for #<Job:0x007fb7d4862660>):
+    4:   <p>Your Jobs:</p>
+    5:   <ul>
+    6:   <% @mechanic.jobs.each do |job| %>
+    7:     <li><%= job.customer.name %> - <%= job.description %> - $<%= job.price %></li>
+    8:   <% end %>
+    9:   </ul>
+   10: </div>
+  app/views/mechanics/show.html.erb:7:in `block in _app_views_mechanics_show_html_erb__3656373642531566904_70213729828260'
+  app/views/mechanics/show.html.erb:6:in `_app_views_mechanics_show_html_erb__3656373642531566904_70213729828260'
+
+
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_source.erb (6.4ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.0ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/actionpack-4.2.5/lib/action_dispatch/middleware/templates/rescues/template_error.html.erb within rescues/layout (48.9ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_markup.html.erb (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_inner_console_markup.html.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/_prompt_box_markup.html.erb within layouts/inlined_string (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/style.css.erb within layouts/inlined_string (0.5ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/console.js.erb within layouts/javascript (56.2ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/main.js.erb within layouts/javascript (0.6ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/error_page.js.erb within layouts/javascript (0.7ms)
+  Rendered /Users/jake/.rvm/gems/ruby-2.2.3/gems/web-console-2.3.0/lib/web_console/templates/index.html.erb (123.7ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:41:13 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 6]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 7]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  Rendered mechanics/show.html.erb within layouts/application (15.8ms)
+Completed 200 OK in 35ms (Views: 32.7ms | ActiveRecord: 1.5ms)
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:41:13 -0500
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:41:38 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.2ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 1]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.2ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 2]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 3]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 4]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 5]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 6]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 7]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 8]]
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 9]]
+  Rendered mechanics/show.html.erb within layouts/application (17.6ms)
+Completed 200 OK in 56ms (Views: 53.3ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:41:38 -0500
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:41:53 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.2ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 1]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 2]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 3]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 4]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 5]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 6]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 7]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 8]]
+  [1m[35mCACHE (0.0ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 9]]
+  Rendered mechanics/show.html.erb within layouts/application (19.4ms)
+Completed 200 OK in 48ms (Views: 44.2ms | ActiveRecord: 1.8ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:53 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:41:53 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:41:53 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:41:54 -0500
+  [1m[36mSQL (1.5ms)[0m  [1mDELETE FROM "jobs" WHERE "jobs"."id" IN (SELECT "jobs"."id" FROM "jobs")[0m
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs"
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:42:56 -0500
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  Rendered mechanics/show.html.erb within layouts/application (19.3ms)
+Completed 200 OK in 255ms (Views: 217.1ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:42:56 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:42:57 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:42:58 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT "mechanics".* FROM "mechanics"
+  [1m[36mCustomer Load (0.2ms)[0m  [1mSELECT "customers".* FROM "customers"[0m
+  Rendered jobs/new.html.erb within layouts/application (32.9ms)
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 94ms (Views: 72.0ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:43:14 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"pJChXL+Ex27BIrXenFfC8EwkWAc+vnoOVsM8FMuxc4lfkxyZYa+4E7h/cFGQzkL32CPyBSbDmHQEYuGQlItD9g==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"3"}, "work_orders"=>{"description"=>"Oil Change", "price"=>"39"}, "commit"=>"Create Job"}
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["description", "Oil Change"], ["price", 39], ["created_at", "2016-02-22 00:43:14.747388"], ["updated_at", "2016-02-22 00:43:14.747388"]]
+  [1m[36m (0.5ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["mechanic_id", 1], ["customer_id", 3], ["created_at", "2016-02-22 00:43:26.979613"], ["updated_at", "2016-02-22 00:43:26.979613"]]
+  [1m[35m (4.8ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "work_orders" SET "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?  [["job_id", 10], ["updated_at", "2016-02-22 00:43:26.989353"], ["id", 6]]
+  [1m[36m (1.4ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mcommit transaction[0m
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/10
+Completed 302 Found in 12270ms (ActiveRecord: 8.9ms)
+
+
+Started GET "/mechanics/1/jobs/10" for ::1 at 2016-02-21 19:43:27 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"10"}
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1  [["id", 10]]
+  [1m[36mMechanic Load (0.3ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mCustomer Load (0.2ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  Rendered jobs/show.html.erb within layouts/application (37.9ms)
+  [1m[35mMechanic Load (0.3ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+Completed 200 OK in 109ms (Views: 81.0ms | ActiveRecord: 3.3ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:43:36 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mWorkOrder Load (0.1ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  Rendered mechanics/show.html.erb within layouts/application (6.5ms)
+Completed 200 OK in 37ms (Views: 35.1ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:43:47 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  Rendered mechanics/show.html.erb within layouts/application (4.5ms)
+Completed 200 OK in 45ms (Views: 43.5ms | ActiveRecord: 0.5ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:44:51 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?[0m  [["mechanic_id", 1]]
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1  [["id", 3]]
+  [1m[36mWorkOrder Load (0.2ms)[0m  [1mSELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?[0m  [["job_id", 10]]
+  Rendered mechanics/show.html.erb within layouts/application (6.2ms)
+Completed 200 OK in 32ms (Views: 30.8ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/assets/customers.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/mechanics.self-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855.css?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/customers.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/application.self-03311e35231cad71338a8e96aa90a58b27d16922660c7065e2ec5d3c4a4e211b.css?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/jquery.self-c64a74367bda6ef8b860f19e74df08927ca99d2be2ac934e9e92d5fd361e0da4.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/jquery_ujs.self-d602bdfe68ffc63b9f9cc512872aa3cfff046228a0a36e90dd476e8ef54c1b09.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/mechanics.self-877aef30ae1b040ab8a3aba4e3e309a11d7f2612f44dde450b5c157aa5f95c05.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/turbolinks.self-c37727e9bd6b2735da5c311aa83fead54ed0be6cc8bd9a65309e9c5abe2cbfff.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/assets/application.self-3b8dabdc891efe46b9a144b400ad69e37d7e5876bdc39dee783419a69d7ca819.js?body=1" for ::1 at 2016-02-21 19:44:51 -0500
+
+
+Started GET "/mechanics/1/jobs/new" for ::1 at 2016-02-21 19:44:56 -0500
+Processing by JobsController#new as HTML
+  Parameters: {"mechanic_id"=>"1"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.2ms)[0m  [1mSELECT "mechanics".* FROM "mechanics"[0m
+  [1m[35mCustomer Load (0.1ms)[0m  SELECT "customers".* FROM "customers"
+  Rendered jobs/new.html.erb within layouts/application (5.6ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 26ms (Views: 23.6ms | ActiveRecord: 0.5ms)
+
+
+Started POST "/jobs" for ::1 at 2016-02-21 19:45:08 -0500
+Processing by JobsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"a8sxGoyDq4W9jsp5UEHxgbVKhfMU5tGK3zF3w7aQCmuQyIzfUqjU+MTTD/Zc2HGGIU0v8QybM/CNkKpH6ao6FA==", "job"=>{"mechanic_id"=>"1", "customer_id"=>"2"}, "work_orders"=>{"description"=>"Alignment", "price"=>"99"}, "commit"=>"Create Job"}
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "work_orders" ("description", "price", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["description", "Alignment"], ["price", 99], ["created_at", "2016-02-22 00:45:08.435323"], ["updated_at", "2016-02-22 00:45:08.435323"]]
+  [1m[35m (0.7ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "jobs" ("mechanic_id", "customer_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)  [["mechanic_id", 1], ["customer_id", 2], ["created_at", "2016-02-22 00:45:08.438789"], ["updated_at", "2016-02-22 00:45:08.438789"]]
+  [1m[36m (0.7ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.7ms)[0m  [1mUPDATE "work_orders" SET "job_id" = ?, "updated_at" = ? WHERE "work_orders"."id" = ?[0m  [["job_id", 11], ["updated_at", "2016-02-22 00:45:08.441655"], ["id", 7]]
+  [1m[35m (0.5ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  commit transaction
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1[0m  [["id", 1]]
+Redirected to http://localhost:3000/mechanics/1/jobs/11
+Completed 302 Found in 13ms (ActiveRecord: 3.8ms)
+
+
+Started GET "/mechanics/1/jobs/11" for ::1 at 2016-02-21 19:45:08 -0500
+Processing by JobsController#show as HTML
+  Parameters: {"mechanic_id"=>"1", "id"=>"11"}
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mJob Load (0.1ms)[0m  [1mSELECT  "jobs".* FROM "jobs" WHERE "jobs"."id" = ? LIMIT 1[0m  [["id", 11]]
+  [1m[35mMechanic Load (0.1ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 11]]
+  Rendered jobs/show.html.erb within layouts/application (2.9ms)
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+Completed 200 OK in 33ms (Views: 30.5ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/mechanics/1" for ::1 at 2016-02-21 19:45:11 -0500
+Processing by MechanicsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mMechanic Load (0.2ms)[0m  SELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ? LIMIT 1  [["id", 1]]
+  [1m[36mMechanic Load (0.1ms)[0m  [1mSELECT  "mechanics".* FROM "mechanics" WHERE "mechanics"."id" = ?  ORDER BY "mechanics"."id" ASC LIMIT 1[0m  [["id", 1]]
+  [1m[35mJob Load (0.1ms)[0m  SELECT "jobs".* FROM "jobs" WHERE "jobs"."mechanic_id" = ?  [["mechanic_id", 1]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 3]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 10]]
+  [1m[36mCustomer Load (0.1ms)[0m  [1mSELECT  "customers".* FROM "customers" WHERE "customers"."id" = ? LIMIT 1[0m  [["id", 2]]
+  [1m[35mWorkOrder Load (0.1ms)[0m  SELECT "work_orders".* FROM "work_orders" WHERE "work_orders"."job_id" = ?  [["job_id", 11]]
+  Rendered mechanics/show.html.erb within layouts/application (4.8ms)
+Completed 200 OK in 23ms (Views: 20.8ms | ActiveRecord: 0.6ms)

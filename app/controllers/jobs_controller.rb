@@ -9,6 +9,7 @@ class JobsController < ApplicationController
     @mechanics = Mechanic.all
     @customers = Customer.all
     @job = Job.new
+    @job.work_orders.build
   end
 
   def create
@@ -43,7 +44,9 @@ class JobsController < ApplicationController
     end
 
     def job_params
-      params.require(:job).permit(:mechanic_id, :customer_id, :description, :price)
+      strong = params.require(:job).permit(:mechanic_id, :customer_id)
+      strong[:work_orders] = params.require(:work_orders).permit(:description, :price)
+      strong
     end
 
 end

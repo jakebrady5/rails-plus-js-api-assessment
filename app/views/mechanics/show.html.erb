@@ -4,7 +4,15 @@
   <p>Your Jobs:</p>
   <ul>
   <% @mechanic.jobs.each do |job| %>
-    <li><%= job.customer.name %> - <%= job.description %> - $<%= job.price %></li>
+    <li><%= job.customer.name %><br>
+      <ul>
+        <% job.work_orders.each do |order| %>
+          <li>
+            <%= order.description %>, $<%= order.price %>, <%= order.status %><br><br>
+          </li>
+        <% end %>
+      </ul>
+    </li>
   <% end %>
   </ul>
 </div>

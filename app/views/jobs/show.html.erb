@@ -1,4 +1,12 @@
 Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
 Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
-Description: <%= @job.description %><br>
-Price: $<%= @job.price %>
+
+<ul>
+  <% @job.work_orders.each do |order| %>
+    <li>
+      Description: <%= order.description %><br>
+      Price: $<%= order.price %><br>
+      Status: <%= order.status %>
+    </li>
+  <% end %>
+</ul>
