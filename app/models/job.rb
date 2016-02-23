@@ -2,7 +2,7 @@ class Job < ActiveRecord::Base
 
   belongs_to :customer
   belongs_to :mechanic
-  has_many :work_orders
+  has_many :work_orders, dependent: :destroy
 
   validates :customer_id, presence: true
   validates :mechanic_id, presence: true

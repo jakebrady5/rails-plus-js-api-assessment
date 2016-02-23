@@ -1,6 +1,5 @@
-<%= form_tag('/complete') do %>
 <ul>
-<% Job.unfinished_jobs.each do |job| %>
+<% job_collection.each do |job| %>
   <li>Mechanic: <%= job.mechanic.name %><br>Customer: <%= job.customer.name %><br>
     <ul>
       <% job.work_orders.each do |order| %>
@@ -11,8 +10,7 @@
       <% end %>
     </ul>
   </li>
-  <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %><br><br>
+  <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %>  |  
+  <%= link_to "Delete Job", "/mechanics/#{job.mechanic.id}/jobs/#{job.id}", method: :delete %><br><br>
 <% end %>
 </ul>
-<%= submit_tag("Mark Selected Complete") %>
-<% end %>

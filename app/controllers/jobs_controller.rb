@@ -1,13 +1,12 @@
 class JobsController < ApplicationController
   before_action :set_mechanic, except: :create
+  before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def index
     @jobs = Job.all
   end
 
   def new
-    @mechanics = Mechanic.all
-    @customers = Customer.all
     @job = Job.new
     3.times do
       @job.work_orders.build
@@ -16,29 +15,21 @@ class JobsController < ApplicationController
 
   def create
     @job = Job.new(job_params)
+    @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
     if @job.save
-      @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
       redirect_to mechanic_job_path(@mechanic.id, @job.id)
     else
-      @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
-      @mechanics = Mechanic.all
-      @customers = Customer.all
       render 'new'
     end
   end
 
   def show
-    @job = Job.find(params[:id])
   end
 
   def edit
-    @mechanics = Mechanic.all
-    @customers = Customer.all
-    @job = Job.find(params[:id])
   end
 
   def update
-    @job = Job.find(params[:id])
     if @job.update(job_params)
       redirect_to mechanic_job_path(@job.mechanic.id, @job.id)
     else
@@ -55,9 +46,16 @@ class JobsController < ApplicationController
   end
 
   def destroy
+    @job.destroy
+    redirect_to '/'
   end
 
   private
+    
+    def set_job
+      @job = Job.find(params[:id])
+    end
+
     def set_mechanic
       @mechanic = Mechanic.find_by(id: params[:mechanic_id])
     end

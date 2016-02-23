@@ -1,18 +1,18 @@
 class StaticController < ApplicationController
 
-  def home
-    if !current_mechanic
-      render 'visitor'
-    end
-    @mechanic = current_mechanic
-  end
+  # def home
+  #   if !current_mechanic
+  #     render 'visitor'
+  #   end
+  #   @mechanic = current_mechanic
+  # end
 
-  def signin
+  # def signin
 
-  end
+  # end
 
-  def signup
-    @mechanic = Mechanic.new
-  end
+  # def signup
+  #   @mechanic = Mechanic.new
+  # end
 
 end

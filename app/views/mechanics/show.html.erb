@@ -4,35 +4,13 @@
 
 <div>
   <h4>Your Pending Jobs:</h4>
-  <ul>
-  <% @mechanic.unfinished_jobs.each do |job| %>
-    <li><%= job.customer.name %><br>
-      <ul>
-        <% job.work_orders.each do |order| %>
-          <li>
-            <%= order.description %>, $<%= order.price %>, <%= order.status %><br><br>
-          </li>
-        <% end %>
-      </ul>
-    </li>
-    <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %><br><br>
+  <%= form_tag('/complete') do %>
+  <%= render partial: 'job_list', locals: {job_collection: @mechanic.unfinished_jobs} %>
+  <%= submit_tag("Mark Selected Complete") %>
   <% end %>
-  </ul>
 </div>
 
 <div>
   <h4>Your Completed Jobs:</h4>
-  <ul>
-  <% @mechanic.finished_jobs.each do |job| %>
-    <li><%= job.customer.name %><br>
-      <ul>
-        <% job.work_orders.each do |order| %>
-          <li>
-            <%= order.description %>, $<%= order.price %>, <%= order.status %><br><br>
-          </li>
-        <% end %>
-      </ul>
-    </li>
-  <% end %>
-  </ul>
+  <%= render partial: 'job_list', locals: {job_collection: @mechanic.finished_jobs} %>
 </div>

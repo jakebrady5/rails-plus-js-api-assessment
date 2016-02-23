@@ -15,10 +15,10 @@
 
 <%= form_for @job, :url => url_for(:controller => 'jobs', :action => 'update'), method: :patch do |f| %>
   <%= f.label :mechanic_id %>
-  <%= f.collection_select :mechanic_id, @mechanics, :id, :name, {selected: @mechanic.id} %><br><br>
+  <%= f.collection_select :mechanic_id, Mechanic.all, :id, :name, {selected: @mechanic.id} %><br><br>
 
   <%= f.label :customer_id %>
-  <%= f.collection_select :customer_id, @customers, :id, :name %><br><br>
+  <%= f.collection_select :customer_id, Customer.all, :id, :name %><br><br>
 
   <div><h4>Work Order:</h4>
     <%= f.fields_for :work_orders do |builder| %>

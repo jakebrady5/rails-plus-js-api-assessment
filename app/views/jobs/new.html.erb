@@ -15,10 +15,10 @@
 
 <%= form_for @job do |f| %>
   <%= f.label :mechanic_id %>
-  <%= f.collection_select :mechanic_id, @mechanics, :id, :name, {selected: @mechanic.id} %><br><br>
+  <%= f.collection_select :mechanic_id, Mechanic.all, :id, :name, {selected: @mechanic.id} %><br><br>
 
   <%= f.label :customer_id %>
-  <%= f.collection_select :customer_id, @customers, :id, :name %><br><br>
+  <%= f.collection_select :customer_id, Customer.all, :id, :name %><br><br>
 
   <div>
     <%= f.fields_for :work_orders do |builder| %>
