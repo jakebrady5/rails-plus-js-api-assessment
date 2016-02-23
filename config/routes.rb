@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   get '/jobs' => 'jobs#index'
   post '/jobs' => 'jobs#create'
+  post '/complete' => 'jobs#complete'
 
   get '/auth/facebook/callback' => 'sessions#create'
 

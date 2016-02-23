@@ -1,0 +1,18 @@
+<%= form_tag('/complete') do %>
+<ul>
+<% Job.unfinished_jobs.each do |job| %>
+  <li>Mechanic: <%= job.mechanic.name %><br>Customer: <%= job.customer.name %><br>
+    <ul>
+      <% job.work_orders.each do |order| %>
+        <li>
+          <%= order.description %>, $<%= order.price %>, <strong><%= order.status %></strong><% if order.status == 'pending' %>, mark complete? <input type="checkbox" name="ids[]" value="<%= order.id %>">
+          <% end %><br>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+  <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %><br><br>
+<% end %>
+</ul>
+<%= submit_tag("Mark Selected Complete") %>
+<% end %>

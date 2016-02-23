@@ -6,7 +6,6 @@ class Job < ActiveRecord::Base
 
   validates :customer_id, presence: true
   validates :mechanic_id, presence: true
-  before_save :at_least_one_work_order
 
   accepts_nested_attributes_for :work_orders
 
@@ -16,10 +15,6 @@ class Job < ActiveRecord::Base
       order = WorkOrder.find_or_create_by(id: v[:id])
       order.update(description: v[:description], price: v[:price], job_id: self.id)
     end
-  end
-
-  def at_least_one_work_order
-    
   end
 
   def complete?
