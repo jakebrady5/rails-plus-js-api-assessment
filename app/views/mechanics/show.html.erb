@@ -1,5 +1,7 @@
 <h1>Welcome, <%= current_mechanic.name %>!</h1>
 
+<%= render partial: 'static/nav2', locals: {mech: @mechanic} %>
+
 <div>
   <h4>Your Pending Jobs:</h4>
   <ul>
@@ -13,6 +15,7 @@
         <% end %>
       </ul>
     </li>
+    <%= link_to "Edit Job", edit_mechanic_job_path(job.mechanic, job) %><br><br>
   <% end %>
   </ul>
 </div>
@@ -33,5 +36,3 @@
   <% end %>
   </ul>
 </div>
-
-<div><%= link_to "Create a New Job", new_mechanic_job_path(@mechanic) %></div>
