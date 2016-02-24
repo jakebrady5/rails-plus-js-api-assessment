@@ -1,0 +1,18 @@
+<%= f.label :mechanic_id %>
+  <%= f.collection_select :mechanic_id, Mechanic.all, :id, :name, {selected: mechanic_id} %><br><br>
+
+  <%= f.label :customer_id %>
+  <%= f.collection_select :customer_id, Customer.all, :id, :name %><br><br>
+
+  <div>
+    <%= f.fields_for :work_orders do |builder| %>
+      <h4>Work Order:</h4>
+      <%= builder.label :description %>
+      <%= builder.text_field :description %><br><br>
+
+      <%= builder.label :price %>
+      <%= builder.text_field :price %><br><br>
+    <% end %>
+  </div>
+
+  <%= f.submit %>

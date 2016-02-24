@@ -17,25 +17,23 @@ class CustomersController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
-    @customer = Customer.find(params[:id])
+    set_customer
   end
 
   def update
-    @customer = Customer.find(params[:id])
+    set_customer
     @customer.update(customer_params)
     redirect_to customers_path
-  end
-
-  def destroy
   end
 
   private
     def customer_params
       params.require(:customer).permit(:name)
+    end
+
+    def set_customer
+      @customer = Customer.find(params[:id])
     end
 
 end

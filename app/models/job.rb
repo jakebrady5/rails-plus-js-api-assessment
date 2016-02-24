@@ -7,8 +7,6 @@ class Job < ActiveRecord::Base
   validates :customer_id, presence: true
   validates :mechanic_id, presence: true
 
-  accepts_nested_attributes_for :work_orders
-
   def work_orders_attributes=(attributes)
     self.save
     attributes.each do |k, v|

@@ -1,7 +1,0 @@
-<h1>I Think I Can Get Rid of This Page?</h1>
-
-<%= link_to "All Jobs", jobs_path %><br><br>
-
-<% @jobs.each do |job| %>
-  Mechanic: <%= job.mechanic.name %> | Customer: <%= job.customer.name %> | Description: <%= job.description %> | Price: <%= job.price %><br><br>
-<% end %>

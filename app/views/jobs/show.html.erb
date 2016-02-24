@@ -1,12 +1,4 @@
-Mechanic: <%= link_to @job.mechanic.name, mechanic_path(@mechanic) %><br>
-Customer: <%= link_to @job.customer.name, customer_path(@job.customer) %><br>
-
-<ul>
-  <% @job.work_orders.each do |order| %>
-    <li>
-      Description: <%= order.description %><br>
-      Price: $<%= order.price %><br>
-      Status: <%= order.status %>
-    </li><br>
-  <% end %>
-</ul>
+<%= form_tag('/complete') do %>
+<%= render partial: '/mechanics/job_list', locals: {job_collection: @job} %>
+<%= submit_tag("Mark Selected Complete") %>
+<% end %>

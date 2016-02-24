@@ -2,10 +2,6 @@ class JobsController < ApplicationController
   before_action :set_mechanic, except: :create
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
-  def index
-    @jobs = Job.all
-  end
-
   def new
     @job = Job.new
     3.times do
@@ -24,6 +20,8 @@ class JobsController < ApplicationController
   end
 
   def show
+    @job = []
+    @job << Job.find(params[:id])
   end
 
   def edit
@@ -35,14 +33,6 @@ class JobsController < ApplicationController
     else
       render 'edit'
     end
-  end
-
-  def complete
-    params[:ids].each do |id|
-      order = WorkOrder.find_by(id: id)
-      order.update(status: 1)
-    end
-    redirect_to '/'
   end
 
   def destroy

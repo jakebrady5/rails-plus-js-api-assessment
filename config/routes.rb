@@ -19,15 +19,14 @@ Rails.application.routes.draw do
 
   get '/' => 'mechanics#home'
 
-  resources :customers
+  resources :customers, except: [:show, :destroy]
 
-  resources :mechanics do 
+  resources :mechanics, only: [:show] do 
     resources :jobs
   end
 
-  get '/jobs' => 'jobs#index'
   post '/jobs' => 'jobs#create'
-  post '/complete' => 'jobs#complete'
+  post '/complete' => 'work_orders#complete'
 
   get '/auth/facebook/callback' => 'sessions#create'
 
