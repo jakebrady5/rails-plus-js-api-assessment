@@ -6,11 +6,6 @@ class MechanicsController < ApplicationController
     end
     #respond to html json
     @mechanic = current_mechanic
-    @jobs = Job.all
-    respond_to do |format|
-      format.html { render :home }
-      format.json { render json: @jobs}
-    end
   end
 
   def show
