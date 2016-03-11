@@ -3,6 +3,7 @@ class JobsController < ApplicationController
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def new
+    # ajax
     @job = Job.new
     3.times do
       @job.work_orders.build
@@ -10,6 +11,7 @@ class JobsController < ApplicationController
   end
 
   def create
+    # ajax
     @job = Job.new(job_params)
     @mechanic = Mechanic.find_by(id: params[:job][:mechanic_id])
     if @job.save
@@ -28,6 +30,7 @@ class JobsController < ApplicationController
   end
 
   def update
+    # ajax
     if @job.update(job_params)
       redirect_to mechanic_job_path(@job.mechanic.id, @job.id)
     else
