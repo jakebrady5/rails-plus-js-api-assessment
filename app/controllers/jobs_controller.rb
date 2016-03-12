@@ -41,6 +41,16 @@ class JobsController < ApplicationController
     redirect_to '/'
   end
 
+  def all_jobs
+    #this is only doing unfinished
+    @jobs = Job.unfinished_jobs
+    render json: @jobs
+  end
+
+  def mechanic_jobs
+    binding.pry
+  end
+
   private
     
     def set_job

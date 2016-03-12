@@ -1,16 +1,68 @@
 $(function(){
   createJob();
+  homeButton();
+  profileButton();
 })
 
 function homeButton(){
-  $('#home-button').on('click', function(event){
+  $(document).on('click', '#home-button', function(event){
+    setHeaders("All");
+    appendList(event);
+  })
+}
+
+function appendList(event){
+  $.get('/get_jobs'
+    ).done(function(jobs){
+      $('#pending-list').html(populateList(jobs));
+  });
+  event.preventDefault();
+}
+
+function populateList(jobs){
+  var str = "";
+  str = iterateJobs(jobs["jobs"]);
+  return str;
+}
+
+function iterateJobs(jobs){
+  var str = "<ul>";
+  jobs.forEach(function(job){
+    var link_path = '/mechanics/' + job['mechanic']['id'] + '/jobs/' + job['id'];
+    str += '<li>Mechanic: ' + job['mechanic']['name'] + '<br>';
+    str += 'Customer: ' + job['customer']['name'] + '<br>';
+    str += '<ul>';
+    job['work_orders'].forEach(function(order){
+      str += '<li>' + order['description'] + ', ';
+      str += '$' + order['price'] + ', ';
+      str += '<strong>' + order['status'] + '</strong>'
+      if(order['status'] === 'pending'){
+        str += ', mark complete? <input type="checkbox" name="ids[]" value="' + order['id'] + '">';
+      }
+      str += '</li>';
+    });
+    str += '</ul></li>';
+    str += '<a href="' + link_path + '/edit">Edit Job</a>  |  ';
+    str += '<a rel="nofollow" data-method="delete" href="' + link_path + '">Delete Job</a><br><br>';
+  });
+  str += '</ul>';
+  return str;
+}
+
+function setHeaders(arg){
+  $('#pending-header').text(arg + " Pending Jobs:");
+  $('#completed-header').text(arg + " Completed Jobs:");
+}
+
+function profileButton(){
+  $(document).on('click', '#profile-button', function(event){
     event.preventDefault();
-    alert('home button works');
+    setHeaders("Your");
   })
 }
 
 function createJob(){
-  $('#create-job').on('click', function(event){
+  $(document).on('click', '#create-job', function(event){
     event.preventDefault();
     var url = window.location.pathname.slice(0, -3);
     $.post(url, $('form').serialize()

@@ -7,7 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<nav>
+<nav class="navbar">
   <% if current_mechanic %>
     <span>Logged in as <%= current_mechanic.name %>.  |  </span>
     <span id="profile-button"><%= link_to "View Your Profile", mechanic_path(current_mechanic) %>  |  </span>

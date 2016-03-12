@@ -2,16 +2,20 @@
 
 <%= render partial: "nav2", locals: {mech: @mechanic} %>
 
-  <div>
-    <h4>All Pending Jobs:</h4>
-    <%= form_tag('/complete') do %>
-    <%= render partial: 'mechanics/job_list', locals: {job_collection: Job.unfinished_jobs} %>
-    <%= submit_tag("Mark Selected Complete") %>
-    <% end %>
+<div>
+  <h4 id="pending-header">All Pending Jobs:</h4>
+  <%= form_tag('/complete') do %>
+  <div id="pending-list">
+  <%= render partial: 'mechanics/job_list', locals: {job_collection: Job.unfinished_jobs} %>
   </div>
+  <%= submit_tag("Mark Selected Complete") %>
+  <% end %>
+</div>
 
 
 <div>
-  <h4>All Completed Jobs:</h4>
+  <h4 id="completed-header">All Completed Jobs:</h4>
+  <div id="completed-list">
   <%= render partial: 'mechanics/job_list', locals: {job_collection: Job.finished_jobs} %>
+  </div>
 </div>
