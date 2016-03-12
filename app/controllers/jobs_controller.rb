@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :set_mechanic, except: :create
+  before_action :set_mechanic, only: [:new, :show, :edit, :update, :destroy]
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   def new
@@ -28,7 +28,6 @@ class JobsController < ApplicationController
   end
 
   def update
-    # ajax
     if @job.update(job_params)
       redirect_to mechanic_job_path(@job.mechanic.id, @job.id)
     else
@@ -41,14 +40,22 @@ class JobsController < ApplicationController
     redirect_to '/'
   end
 
-  def all_jobs
-    #this is only doing unfinished
-    @jobs = Job.unfinished_jobs
-    render json: @jobs
+  def pending_jobs
+    render json: Job.unfinished_jobs
   end
 
-  def mechanic_jobs
-    binding.pry
+  def completed_jobs
+    render json: Job.finished_jobs
+  end
+
+  def mechanic_pending_jobs
+    @mechanic = current_mechanic
+    render json: @mechanic.unfinished_jobs
+  end
+
+  def mechanic_completed_jobs
+    @mechanic = current_mechanic
+    render json: @mechanic.finished_jobs
   end
 
   private

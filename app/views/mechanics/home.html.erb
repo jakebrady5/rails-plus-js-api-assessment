@@ -6,9 +6,9 @@
   <h4 id="pending-header">All Pending Jobs:</h4>
   <%= form_tag('/complete') do %>
   <div id="pending-list">
-  <%= render partial: 'mechanics/job_list', locals: {job_collection: Job.unfinished_jobs} %>
+  <%#= render partial: 'mechanics/job_list', locals: {job_collection: Job.unfinished_jobs} %>
   </div>
-  <%= submit_tag("Mark Selected Complete") %>
+  <%= submit_tag "Mark Selected Complete", :id => 'mark-complete' %>
   <% end %>
 </div>
 
@@ -16,6 +16,6 @@
 <div>
   <h4 id="completed-header">All Completed Jobs:</h4>
   <div id="completed-list">
-  <%= render partial: 'mechanics/job_list', locals: {job_collection: Job.finished_jobs} %>
+  <%#= render partial: 'mechanics/job_list', locals: {job_collection: Job.finished_jobs} %>
   </div>
 </div>

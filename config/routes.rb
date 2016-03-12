@@ -14,8 +14,10 @@ Rails.application.routes.draw do
 
   get '/auth/facebook/callback' => 'sessions#create'
 
-  get '/get_jobs' => 'jobs#all_jobs'
-  get '/mechanics/:id/get_jobs' => 'jobs#mechanic_jobs'
+  get '/get_pending_jobs' => 'jobs#pending_jobs'
+  get '/get_completed_jobs' => 'jobs#completed_jobs'
+  get '/get_mechanic_pending_jobs' => 'jobs#mechanic_pending_jobs'
+  get '/get_mechanic_completed_jobs' => 'jobs#mechanic_completed_jobs'
 
   # Example resource route with options:
   #   resources :products do
