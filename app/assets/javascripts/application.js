@@ -14,3 +14,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jobs
+//= require create_jobs
+//= require complete_a_job

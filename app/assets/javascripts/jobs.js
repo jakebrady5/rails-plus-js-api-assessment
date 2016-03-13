@@ -1,38 +1,7 @@
 $(function(){
-  createJob();
   homeButton();
   profileButton();
-  completeJob();
-})
-
-function completeJob(){
-  $(document).on('click', '#mark-complete', function(event){
-    event.preventDefault();
-    var ids = getCheckedBoxes();
-    var pending_url = '/get_pending_jobs';
-    var completed_url = '/get_completed_jobs';
-    if ($('#pending-header').text() === "Your Pending Jobs:"){
-      pending_url = '/get_mechanic_pending_jobs';
-      completed_url ='get_mechanic_completed_jobs';
-    }
-    $.post('/complete', { ids: ids}
-      ).done(function(){
-        appendPendingJobs(pending_url);
-        appendCompletedJobs(completed_url);
-      })
-  });
-}
-
-function getCheckedBoxes(){
-  var ids = [];
-    var boxes = document.getElementsByName("ids[]");
-    for (i = 0; i < boxes.length; i++){
-      if (boxes[i].checked){
-        ids.push(boxes[i]["value"])
-      }
-    }
-  return ids;
-}
+});
 
 function homeButton(){
   $(document).on('click', '#home-button', function(event){
@@ -105,25 +74,4 @@ function iterateWorkOrders(orders){
 function setHeaders(arg){
   $('#pending-header').text(arg + " Pending Jobs:");
   $('#completed-header').text(arg + " Completed Jobs:");
-}
-
-function createJob(){
-  $(document).on('click', '#create-job', function(event){
-    event.preventDefault();
-    var url = window.location.pathname.slice(0, -3);
-    $.post(url, $('form').serialize()
-      ).done(function(data){
-        var job = data['job'];
-        var str = '<li>Mechanic: ' + job['mechanic']['name'] + '</li>';
-        str += '<li>Customer: ' + job['customer']['name'] + '</li>';
-        str += '<li>Work Orders:<ul>';
-        job['work_orders'].forEach(function(order){
-          str += '<li>Description: ' + order['description'] + '</li>';
-          str += '<li>Price: $' + order['price'] + '</li>';
-        });
-        str += '</ul></li>';
-        $('#new-ajax-jobs').append(str);
-        $('input[type=text]').val('');
-      });
-  });
 }

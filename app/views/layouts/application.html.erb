@@ -10,7 +10,6 @@
 <nav class="navbar">
   <% if current_mechanic %>
     <span>Logged in as <%= current_mechanic.name %>.  |  </span>
-    <!--<span><%= link_to "View Your Profile", mechanic_path(current_mechanic) %>  |  </span> -->
     <span id="home-link"><%= link_to "Home", "/" %>  |  </span>
     <span><%= link_to "Log Out", destroy_mechanic_session_path, method: :delete %></span>
   <% else %>

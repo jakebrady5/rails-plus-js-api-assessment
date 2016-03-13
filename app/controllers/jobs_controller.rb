@@ -40,6 +40,7 @@ class JobsController < ApplicationController
     redirect_to '/'
   end
 
+  # best practice to leave these here or put in a separate job_api controller?
   def pending_jobs
     render json: Job.unfinished_jobs
   end
