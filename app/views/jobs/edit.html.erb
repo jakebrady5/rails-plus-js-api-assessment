@@ -3,3 +3,9 @@
 <%= form_for @job, :url => url_for(:controller => 'jobs', :action => 'update'), method: :patch do |f| %>
   <%= render partial: 'job_form', locals: {f: f, mechanic_id: @mechanic.id} %>
 <% end %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function(){
+    $('#create-job').removeAttr('id');
+  });
+</script>

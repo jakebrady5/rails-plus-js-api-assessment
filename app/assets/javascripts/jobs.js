@@ -8,9 +8,30 @@ $(function(){
 function completeJob(){
   $(document).on('click', '#mark-complete', function(event){
     event.preventDefault();
-    debugger;
-    //$.post('/complete', { ids: })
+    var ids = getCheckedBoxes();
+    var pending_url = '/get_pending_jobs';
+    var completed_url = '/get_completed_jobs';
+    if ($('#pending-header').text() === "Your Pending Jobs:"){
+      pending_url = '/get_mechanic_pending_jobs';
+      completed_url ='get_mechanic_completed_jobs';
+    }
+    $.post('/complete', { ids: ids}
+      ).done(function(){
+        appendPendingJobs(pending_url);
+        appendCompletedJobs(completed_url);
+      })
   });
+}
+
+function getCheckedBoxes(){
+  var ids = [];
+    var boxes = document.getElementsByName("ids[]");
+    for (i = 0; i < boxes.length; i++){
+      if (boxes[i].checked){
+        ids.push(boxes[i]["value"])
+      }
+    }
+  return ids;
 }
 
 function homeButton(){
@@ -94,12 +115,11 @@ function createJob(){
       ).done(function(data){
         var job = data['job'];
         var str = '<li>Mechanic: ' + job['mechanic']['name'] + '</li>';
-        str += '<li>Mechanic: ' + job['mechanic']['name'] + '</li>';
         str += '<li>Customer: ' + job['customer']['name'] + '</li>';
         str += '<li>Work Orders:<ul>';
         job['work_orders'].forEach(function(order){
           str += '<li>Description: ' + order['description'] + '</li>';
-          str += '<li>Price: ' + order['price'] + '</li>';
+          str += '<li>Price: $' + order['price'] + '</li>';
         });
         str += '</ul></li>';
         $('#new-ajax-jobs').append(str);
