@@ -19,7 +19,7 @@ function homeButton(){
     setHeaders("All");
     appendPendingJobs('/get_pending_jobs');
     appendCompletedJobs('/get_completed_jobs');
-  })
+  });
 }
 
 function profileButton(){
@@ -28,7 +28,7 @@ function profileButton(){
     setHeaders("Your");
     appendPendingJobs('/get_mechanic_pending_jobs');
     appendCompletedJobs('/get_mechanic_completed_jobs');
-  })
+  });
 }
 
 function appendPendingJobs(url){
