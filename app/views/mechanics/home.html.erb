@@ -1,8 +1,8 @@
-<h1>Welcome to Fender Unbender!</h1>
+<h1 class="col-lg-6 col-lg-offset-3">Welcome to Fender Unbender!</h3>
 
 <%= render partial: "navbar", locals: {mech: @mechanic} %>
 
-<div>
+<div class="col-lg-6 col-lg-offset-3">
   <h4 id="pending-header">All Pending Jobs:</h4>
   <%= form_tag('/complete') do %>
   <div id="pending-list">
@@ -12,7 +12,7 @@
 </div>
 
 
-<div>
+<div class="col-lg-6 col-lg-offset-3">
   <h4 id="completed-header">All Completed Jobs:</h4>
   <div id="completed-list">
   </div>
