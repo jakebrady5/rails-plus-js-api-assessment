@@ -14,8 +14,7 @@ Rails.application.routes.draw do
 
   get '/auth/facebook/callback' => 'sessions#create'
 
-  get '/get_pending_jobs' => 'jobs#pending_jobs'
-  get '/get_completed_jobs' => 'jobs#completed_jobs'
+  get '/jobs' => 'jobs#jobs'
   get '/get_mechanic_pending_jobs' => 'jobs#mechanic_pending_jobs'
   get '/get_mechanic_completed_jobs' => 'jobs#mechanic_completed_jobs'
 

@@ -7,8 +7,8 @@ function homeButton(){
   $(document).on('click', '#home-button', function(event){
     event.preventDefault();
     setHeaders("All");
-    appendPendingJobs('/get_pending_jobs');
-    appendCompletedJobs('/get_completed_jobs');
+    appendPendingJobs('/jobs?state=pending');
+    appendCompletedJobs('/jobs?state=completed');
   });
 }
 
@@ -16,8 +16,8 @@ function profileButton(){
   $(document).on('click', '#profile-button', function(event){
     event.preventDefault();
     setHeaders("Your");
-    appendPendingJobs('/get_mechanic_pending_jobs');
-    appendCompletedJobs('/get_mechanic_completed_jobs');
+    appendPendingJobs('/jobs?state=pending&scoped=true');
+    appendCompletedJobs('/jobs?state=completed&scoped=true');
   });
 }
 

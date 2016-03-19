@@ -21,7 +21,7 @@
 <script type="text/javascript" charset="utf-8">
   $(function(){
     setHeaders("All");
-    appendPendingJobs('/get_pending_jobs');
-    appendCompletedJobs('/get_completed_jobs');
+    appendPendingJobs('/jobs?state=pending');
+    appendCompletedJobs('/jobs?state=completed');
   });
 </script>

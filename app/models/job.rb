@@ -16,27 +16,15 @@ class Job < ActiveRecord::Base
   end
 
   def complete?
-    self.work_orders.all == self.work_orders.all.where(status: 1)
+    work_orders.pluck(:status).all? { |status| status == 1 }
   end
 
   def self.unfinished_jobs
-    unfinished = []
-    Job.all.each do |job|
-      if !job.complete?
-        unfinished << job
-      end
-    end
-    unfinished
+    includes(:work_orders).where(work_orders: { status: 0 })
   end
 
   def self.finished_jobs
-    finished = []
-    Job.all.each do |job|
-      if job.complete?
-        finished << job
-      end
-    end
-    finished
+    includes(:work_orders).where(work_orders: { status: 1 }).select(&:complete?)
   end
 
 end

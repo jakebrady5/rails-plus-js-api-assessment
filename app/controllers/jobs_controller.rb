@@ -40,23 +40,13 @@ class JobsController < ApplicationController
     redirect_to '/'
   end
 
-  # best practice to leave these here or put in a separate job_api controller?
-  def pending_jobs
-    render json: Job.unfinished_jobs
-  end
-
-  def completed_jobs
-    render json: Job.finished_jobs
-  end
-
-  def mechanic_pending_jobs
-    @mechanic = current_mechanic
-    render json: @mechanic.unfinished_jobs
-  end
-
-  def mechanic_completed_jobs
-    @mechanic = current_mechanic
-    render json: @mechanic.finished_jobs
+  def jobs
+    params[:scoped] ? scope = current_mechanic : scope = Job
+    if params[:state] == 'completed'
+      render json: scope.finished_jobs
+    else
+      render json: scope.unfinished_jobs
+    end
   end
 
   private

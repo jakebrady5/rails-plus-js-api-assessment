@@ -6,11 +6,11 @@ function completeJob(){
   $(document).on('click', '#mark-complete', function(event){
     event.preventDefault();
     var ids = getCheckedBoxes();
-    var pending_url = '/get_pending_jobs';
-    var completed_url = '/get_completed_jobs';
+    var pending_url = '/jobs?state=pending';
+    var completed_url = '/jobs?state=completed';
     if ($('#pending-header').text() === "Your Pending Jobs:"){
-      pending_url = '/get_mechanic_pending_jobs';
-      completed_url ='get_mechanic_completed_jobs';
+      pending_url = '/jobs?state=pending&scoped=true';
+      completed_url ='/jobs?state=completed&scoped=true';
     }
     $.post('/complete', { ids: ids}
       ).done(function(){
