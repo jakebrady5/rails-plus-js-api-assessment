@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'seed_dump'
 gem 'active_model_serializers'
 gem 'devise'
 gem 'omniauth'
