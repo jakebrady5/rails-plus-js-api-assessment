@@ -7,8 +7,4 @@ class MechanicsController < ApplicationController
     @mechanic = current_mechanic
   end
 
-  # def show
-  #   @mechanic = Mechanic.find(params[:id])
-  # end
-
 end

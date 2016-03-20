@@ -16,3 +16,4 @@
 //= require jobs
 //= require create_jobs
 //= require complete_a_job
+//= require delete_a_job

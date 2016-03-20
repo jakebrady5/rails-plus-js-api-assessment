@@ -49,9 +49,10 @@ function iterateJobs(jobs){
     str += 'Customer: ' + job['customer']['name'] + '<br>';
     str += '<ul>';
     str += iterateWorkOrders(job['work_orders']);
-    str += '</ul></li>';
-    str += '<a href="' + link_path + '/edit">Edit Job</a>  |  ';
-    str += '<a rel="nofollow" data-method="delete" href="' + link_path + '">Delete Job</a><br><br>';
+    str += '</ul>';
+    str += '<button class="edit btn-info" href="' + link_path + '/edit">Edit Job</button>  |  ';
+    str += '<button class="delete btn-danger" href="' + link_path + '">Delete Job</button><br><br>';
+    str += '</li>';
   });
   str += '</ul>';
   return str;
